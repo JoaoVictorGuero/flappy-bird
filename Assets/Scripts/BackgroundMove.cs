@@ -6,16 +6,17 @@ public class BackgroundMove : MonoBehaviour
 {
     Material _material;
     public float speed;
-    // Start is called before the first frame update
     
     void Start()
     {
         _material = GetComponent<SpriteRenderer>().material;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        _material.mainTextureOffset = new Vector2(Moviment.posicao*speed, 0); 
+        if (GameManager._isMoving == true)
+        {
+            _material.mainTextureOffset = new Vector2(GameManager.posicao * speed, 0);
+        }
     }
 }

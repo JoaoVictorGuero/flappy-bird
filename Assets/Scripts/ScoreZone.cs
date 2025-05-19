@@ -13,7 +13,7 @@ public class ScoreZone : MonoBehaviour
     {
         if (!scored && other.CompareTag("Player"))
         {
-            GameManager.instance.AddScore(1);
+            Player.instance.AddScore(1);
             scored = true;
         }
     }

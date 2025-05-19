@@ -7,28 +7,24 @@ public class CanosSpawner : MonoBehaviour
     public GameObject pipePrefab;
     public float spawnRate = 2.5f;
     public float heightOffset = 1f;
-    private float timer = 0f;
+    private float _timer = 0f;
 
-    void Update()
+    private void Update()
     {
-        timer += Time.deltaTime;
-        if (GameManager._isMoving == true)
-        {
-            if (timer >= spawnRate)
-            {
-                SpawnPipe();
-                timer = 0f;
-            }
-        }
+        _timer += Time.deltaTime;
+        if (Player.isMoving != true) return;
+        if (!(_timer >= spawnRate)) return;
+        SpawnPipe();
+        _timer = 0f;
 
     }
 
-    void SpawnPipe()
+    private void SpawnPipe()
     {
-        Vector3 screenRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, 0));
-        float yPos = Random.Range(-heightOffset, heightOffset);
+        var screenRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, 0));
+        var yPos = Random.Range(-heightOffset, heightOffset);
         
-        Vector3 spawnPos = new Vector3(screenRight.x + 1f, yPos, 0);
+        var spawnPos = new Vector3(screenRight.x + 1f, yPos, 0);
         Instantiate(pipePrefab, spawnPos, Quaternion.identity);
     }
 }

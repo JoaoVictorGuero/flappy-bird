@@ -4,9 +4,9 @@ public class CanosMoving : MonoBehaviour
 {
     public float speed = 2f;
 
-    void Update()
+    private void Update()
     {
-        if (GameManager._isMoving == true)
+        if (Player.isMoving == true)
         {
             transform.position += Vector3.left * speed * Time.deltaTime;
         }

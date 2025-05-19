@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class BackgroundMove : MonoBehaviour
 {
-    Material _material;
+    private Material _material;
     public float speed;
-    
-    void Start()
+
+    private void Start()
     {
         _material = GetComponent<SpriteRenderer>().material;
     }
-    
-    void Update()
+
+    private void Update()
     {
-        if (GameManager._isMoving == true)
+        if (Player.isMoving == true)
         {
-            _material.mainTextureOffset = new Vector2(GameManager.posicao * speed, 0);
+            _material.mainTextureOffset = new Vector2(Player.posicao * speed, 0);
         }
     }
 }

@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-public class GameManager : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public static float posicao = 0f;
-    public static bool _isMoving = false;
+    public static bool isMoving = false;
     private bool _dead = false;
     private Rigidbody2D _rigidbody2D;
     public SpriteRenderer message;
     public SpriteRenderer gameover;
-    public static int score = 0;
-    public static GameManager instance;
+    private static int _score = 0;
+    public static Player instance;
     public TMP_Text scoreText;
     private void Start()
     {
@@ -23,14 +23,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!_isMoving && !_dead && Input.GetKeyDown(KeyCode.Space))
+
+        if (!isMoving && !_dead && Input.GetKeyDown(KeyCode.Space))
         {
             message.enabled = false;
             _rigidbody2D.gravityScale = 0f;
-            _isMoving = true;
+            isMoving = true;
         }
         
-        if (_isMoving && !_dead)
+        if (isMoving && !_dead)
         {
             _rigidbody2D.gravityScale = 0.25f;
             posicao += Time.deltaTime;
@@ -50,21 +51,13 @@ public class GameManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        _isMoving = false;
+        isMoving = false;
         _dead = true;
         gameover.enabled = true;
-        score = 0;
+        _score = 0;
     }
 
-    private void Move()
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            _rigidbody2D.velocity = new Vector2(0f, 1f);
-        }
-    }
-    
-    void Awake()
+    private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
@@ -72,7 +65,15 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int amount)
     {
-        score += amount;
-        scoreText.text = score.ToString();
+        _score += amount;
+        scoreText.text = _score.ToString();
+    }
+    
+    private void Move()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _rigidbody2D.velocity = new Vector2(0f, 1f);
+        }
     }
 }

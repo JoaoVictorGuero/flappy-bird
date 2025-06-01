@@ -1028,7 +1028,7 @@ MonoBehaviour:
     cameraXOfsset: 2
     randomizer:
       isRandom: 1
-      probability: 100
+      probability: 35
     timer: 0
 --- !u!114 &812952684
 MonoBehaviour:

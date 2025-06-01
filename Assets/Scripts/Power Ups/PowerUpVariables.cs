@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Power Up", menuName = "New Power Up")]
 public class PowerUpVariables : ScriptableObject
 {
-    public enum effect { startEffect }
+    public enum effect { starEffect, timeEffect, shotEffect}
 
     [Header("Basic")]
     public effect type;

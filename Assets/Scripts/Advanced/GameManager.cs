@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static int maxScore = 0;
+    public int maxScore = 0;
     private int score = 0;
 
     public static float currentSpeed;
@@ -37,14 +37,12 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        currentSpeed = minSpeed;
-        relativeSpeed = 1;
-        canMove = false;
+        resetSpeed();
         startGame();
     }
     void Update()
     {
-        if (Player.isMoving)
+        if (Player.isMoving && !PowerUp.timeEffectIsActive)
         {
             canMove = currentSpeed >= maxSpeed;
             if (currentSpeed < maxSpeed)
@@ -56,14 +54,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void resetSpeed()
+    {
+        currentSpeed = minSpeed;
+        relativeSpeed = 1;
+        Player.position = 0;
+        canMove = false;
+    }
     public void AddScore(int amount)
     {
         score += amount;
         scoreText.text = score.ToString();
-        if (score > maxScore) maxScore = score;
+        if (score > maxScore) {
+            maxScore = score;
+            PlayerPrefs.SetInt("MAX_SCORE", maxScore);
+        } 
     }
     public void startGame(bool isStarting = false)
     {
+        maxScore = PlayerPrefs.HasKey("MAX_SCORE") ? PlayerPrefs.GetInt("MAX_SCORE") : 0;
         scoreText.enabled = isStarting;
         recordScoreText.text = maxScore.ToString();
         gameoverUI.SetActive(false);

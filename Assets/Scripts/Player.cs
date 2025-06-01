@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 public class Player : MonoBehaviour
 {
+    // Inspector private
     [Header("Basic")]
     public Sprite fallBird;
     public Sprite stableBird;
@@ -16,13 +17,20 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip clickSound;
     [SerializeField]private AudioClip hitSound;
     [SerializeField] private AudioClip dieSound;
+    [Header("Shot")]
+    [SerializeField] private Transform shotSpawnerTrans;
+    [SerializeField] private AudioClip shotSound;
+    [SerializeField] private float shotSpeed;
     [Header("Advanced")]
     public GameObject particleAnim;
 
+    // Static 
+
     public static Player instance;
-    public static float posicao = 0f;
+    public static float position = 0f;
     public static bool isMoving = false;
 
+    // Private
     private Rigidbody2D _rigidbody2D;
     private AudioSource _audioCom;
     private SpriteRenderer _spriteRenderer;
@@ -36,7 +44,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {        
-        posicao = 0f;
+        position = 0f;
 
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rigidbody2D.gravityScale = 0f;
@@ -60,7 +68,8 @@ public class Player : MonoBehaviour
         if (isMoving && !_dead)
         {
             _rigidbody2D.gravityScale = 0.25f;
-            posicao += Time.deltaTime;
+            if (!PowerUp.timeEffectIsActive) position += Time.deltaTime;
+            if(PowerUp.shotEffectIsActive) Shot();
             Move();
         }
         
@@ -76,17 +85,20 @@ public class Player : MonoBehaviour
         {
             if (PowerUp.starEffectIsActive)
             {
-                collision.transform.parent.gameObject.SetActive(false);
-                GameManager.instance.effectParticle.transform.position = transform.position;
-                GameManager.instance.effectParticle.SetActive(true);
+                collision.transform.parent.gameObject.GetComponent<PipeSystem>().kill();
                 return;
             }
         }
         if (_dead) _audioCom.PlayOneShot(dieSound);
-
-        death();
+        else Death();
     }
-    
+
+    /**
+    * @brief Lida com a movimentação do jogador.
+    * 
+    * Impulsiona-o verticalmente, calcula ângulo de inclinação,
+    * ativa efeitos sonoros e visuais.
+    */
     private void Move()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -107,7 +119,25 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * smoothRotation);
     }
 
-    private void death()
+    /**
+    * @brief Responsável por spawnar e configurar uma bala.
+    * 
+    * 'Instancia' por meio da piscina de objetos (Object pool) um
+    * tiro, posicionando-o e configurando suas físicas para se 
+    * comportar como tal.
+    */
+    private void Shot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject shot = ObjectPooler_manager.Instance.SpawnFromPool("shot", shotSpawnerTrans.position, shotSpawnerTrans.rotation);
+            shot.GetComponent<Rigidbody2D>().velocity = Vector2.right * shotSpeed;
+            _audioCom.PlayOneShot(shotSound);
+        }
+    }
+
+    // Lida com procedimento de morte do Player.
+    private void Death()
     {
         _rigidbody2D.gravityScale = 1;
         isMoving = false;

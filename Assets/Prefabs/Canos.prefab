@@ -50,7 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upPart: {fileID: 7914978046828346791}
   downPart: {fileID: 8496753370173945923}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
   moveRateTime: 0.75
+  damageTime: 0.2
 --- !u!114 &-7704994895467950311
 MonoBehaviour:
   m_ObjectHideFlags: 0

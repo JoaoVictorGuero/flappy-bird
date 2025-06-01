@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c462ddc9e3bd32f43b9e7d66db69bed5, type: 3}
+  m_Name: Star
+  m_EditorClassIdentifier: 
+  type: 0
+  time: 10
+  sound: {fileID: 8300000, guid: 13278a0164136ee4fb1fa41cce3a3726, type: 3}
+  powerUpColor: {r: 1, g: 0.8895351, b: 0, a: 1}
+  powerUpFallBird: {fileID: 21300000, guid: 66d2320c8b5e85d4d988a3bac048cbc5, type: 3}
+  powerUpStableBird: {fileID: 21300000, guid: 011ed6446e923c843bbdc33a9ee2569c, type: 3}
+  powerUpFlyBird: {fileID: 21300000, guid: 98eb3dd23bdfb8141bb5e730445b78ce, type: 3}

@@ -924,6 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441a08b97df4b1e4db6a492d52772048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxScore: 0
   scoreText: {fileID: 902191647}
   recordScoreText: {fileID: 1305941296}
   matchScoreText: {fileID: 1235347153}
@@ -1019,13 +1020,15 @@ MonoBehaviour:
     timer: 0
   - prefabTags:
     - star-power
+    - time-power
+    - shot-power
     spawnRate: 5.5
     heightFixed: 0
     heightOffset: 0.8
     cameraXOfsset: 2
     randomizer:
       isRandom: 1
-      probability: 25
+      probability: 35
     timer: 0
 --- !u!114 &812952684
 MonoBehaviour:
@@ -1410,6 +1413,9 @@ MonoBehaviour:
   clickSound: {fileID: 8300000, guid: 7e48dcb0770b58d4bae92f598c967d9c, type: 3}
   hitSound: {fileID: 8300000, guid: c307f467b14bd3943b18ee6088191435, type: 3}
   dieSound: {fileID: 8300000, guid: fc2c82ec0bed78d4ea4b158bd1329ff7, type: 3}
+  shotSpawnerTrans: {fileID: 2019940790}
+  shotSound: {fileID: 8300000, guid: 5854e9dcf5b49b8409cd2c75e0f6aa59, type: 3}
+  shotSpeed: 10
   particleAnim: {fileID: 255983890}
 --- !u!4 &903683134
 Transform:
@@ -1422,7 +1428,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.15, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2019940790}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.54}
@@ -2524,34 +2531,43 @@ MonoBehaviour:
     size: 2
   - tag: tree-01
     prefab: {fileID: 1196203580797528, guid: e45c9aed6bafa964782c6325956f228f, type: 3}
-    size: 2
+    size: 3
   - tag: tree-02
     prefab: {fileID: 1662676036185484, guid: 1753d53c838270d479ba970c43ad019b, type: 3}
-    size: 2
+    size: 3
   - tag: tree-03
     prefab: {fileID: 1547617226736100, guid: c60e10becc91cdc488b6f96b7aacf54a, type: 3}
-    size: 2
+    size: 3
   - tag: stone-01
     prefab: {fileID: 1561673317274754, guid: 20b4923008369ef4883c3ccd4a040d1e, type: 3}
-    size: 2
+    size: 3
   - tag: stone-02
     prefab: {fileID: 1768472585320842, guid: 4dc93bd254f2c41479bfed68801a7bad, type: 3}
-    size: 2
+    size: 3
   - tag: stone-03
     prefab: {fileID: 1754417599737178, guid: efbbc1a7890bb6044a8fa67db33f6ade, type: 3}
-    size: 2
+    size: 3
   - tag: stone-04
     prefab: {fileID: 1068010750685704, guid: f72335d0f97cbdd4abec38471223522a, type: 3}
-    size: 2
+    size: 3
   - tag: grass
     prefab: {fileID: 1624413393989436, guid: 10753226447896e44b12ebb13c411542, type: 3}
     size: 10
   - tag: structure-01
     prefab: {fileID: 1491387355927196, guid: ff2321c1e30309840845d6def31b27d4, type: 3}
-    size: 2
+    size: 3
   - tag: star-power
     prefab: {fileID: 5285360490782037399, guid: 0ba77fdfbdc767f4d99909297457a900, type: 3}
     size: 2
+  - tag: time-power
+    prefab: {fileID: 345639851562978881, guid: 723253d64b1a8aa47b867bbc67d64d5d, type: 3}
+    size: 2
+  - tag: shot-power
+    prefab: {fileID: 2108735556495746734, guid: ffff9a3a10725284b815f8a1380decc0, type: 3}
+    size: 2
+  - tag: shot
+    prefab: {fileID: 8737658015386262292, guid: 262ad5d559eb60949b81e6ed8ebd7c7b, type: 3}
+    size: 7
 --- !u!1 &1842637722
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,6 +2750,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e196c9e632c76841a71cb6e2dc6d010, type: 3}
+--- !u!1 &2019940789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2019940790}
+  m_Layer: 0
+  m_Name: ShotSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2019940790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019940789}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.1372, y: -0.0501, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 903683134}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &2058030707
 GameObject:
   m_ObjectHideFlags: 0

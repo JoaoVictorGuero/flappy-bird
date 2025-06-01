@@ -16,7 +16,7 @@ public class BackgroundMove : MonoBehaviour
     {
         if (Player.isMoving == true)
         {
-            _material.mainTextureOffset = new Vector2(Player.posicao * speed * GameManager.relativeSpeed, 0);
+            _material.mainTextureOffset = new Vector2(Player.position * speed * GameManager.relativeSpeed, 0);
         }
     }
 }

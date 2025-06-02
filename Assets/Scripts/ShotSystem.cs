@@ -17,6 +17,7 @@ public class ShotSystem : MonoBehaviour, IPooledObject
         timer += Time.deltaTime;
         if(timer >= activeTime) gameObject.SetActive(false);
     }
+    //sistema de Dano ao cano 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Obstacle"))

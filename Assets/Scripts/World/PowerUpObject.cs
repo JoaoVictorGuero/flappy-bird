@@ -29,7 +29,7 @@ public class PowerUpObject : MonoBehaviour, IPooledObject
         if (collision.CompareTag("Player"))
         {
             PowerUp.instance.effect(powerUp);
-            _audioSource.PlayOneShot(powerUp.sound);
+            _audioSource.PlayOneShot(powerUp.sound, 0.5f);
             _spriteRenderer.enabled = false;
             _boxCollider2D.enabled = false;
         }

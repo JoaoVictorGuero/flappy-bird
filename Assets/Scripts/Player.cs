@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     private bool _dead = false;
-
+    //verifica se o player foi instanciado
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -77,8 +77,8 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-    }
-
+    }  
+    // lida com a colisão do player com obstaculos 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
                 return;
             }
         }
-        if (_dead) _audioCom.PlayOneShot(dieSound);
+        if (_dead) _audioCom.PlayOneShot(dieSound,0.5f);
         else Death();
     }
 
@@ -103,8 +103,8 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _rigidbody2D.velocity = Vector2.up * yVelocity;
-            _audioCom.PlayOneShot(clickSound);
+            _rigidbody2D.velocity =PowerUp.AntGEffectIsActive ? Vector2.down * yVelocity: Vector2.up * yVelocity;
+            _audioCom.PlayOneShot(clickSound , 0.5f);
             particleAnim.transform.position = new Vector2(transform.position.x - 0.1f, transform.position.y + 0.075f);
             particleAnim.GetComponent<Animator>().SetTrigger("fly");
         }
@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
         {
             GameObject shot = ObjectPooler_manager.Instance.SpawnFromPool("shot", shotSpawnerTrans.position, shotSpawnerTrans.rotation);
             shot.GetComponent<Rigidbody2D>().velocity = Vector2.right * shotSpeed;
-            _audioCom.PlayOneShot(shotSound);
+            _audioCom.PlayOneShot(shotSound, 0.5f);
         }
     }
 
@@ -143,7 +143,7 @@ public class Player : MonoBehaviour
         isMoving = false;
         _dead = true;
         GameManager.instance.gameOver();
-        _audioCom.PlayOneShot(hitSound);
+        _audioCom.PlayOneShot(hitSound, 0.5f);
 
     }
 }

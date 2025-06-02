@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   time: 0
-  sound: {fileID: 8300000, guid: 13278a0164136ee4fb1fa41cce3a3726, type: 3}
+  sound: {fileID: 8300000, guid: bc421805014453444a63eb4c4292c6ee, type: 3}
   powerUpColor: {r: 1, g: 1, b: 1, a: 1}
   powerUpFallBird: {fileID: 21300000, guid: 6f9b0cde2cbd2484da5a206f55c8d8b8, type: 3}
   powerUpStableBird: {fileID: 21300000, guid: 5355713a793a0234cbf7078a59622767, type: 3}

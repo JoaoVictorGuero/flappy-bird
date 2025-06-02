@@ -14,7 +14,7 @@ public class ScoreZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.instance.AddScore(1);
-            GetComponent<AudioSource>().PlayOneShot(scoreSound);
+            GetComponent<AudioSource>().PlayOneShot(scoreSound, 0.5f);
         }
     }
 }

@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
     public static float currentSpeed;
     public static float relativeSpeed;
     public static bool canMove;
-
+    public static float NormalGravity = -9.81f;
+    
+    
     [Header("Basic")]
     [SerializeField] private TMPro.TMP_Text scoreText;
     [SerializeField] private TMPro.TMP_Text recordScoreText;
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    //Reseta a velocidade para o  normal
     public void resetSpeed()
     {
         currentSpeed = minSpeed;
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
         Player.position = 0;
         canMove = false;
     }
+    //faz a contagem dos pontos
     public void AddScore(int amount)
     {
         score += amount;
@@ -70,6 +73,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("MAX_SCORE", maxScore);
         } 
     }
+    // prepara para o jogo começar
     public void startGame(bool isStarting = false)
     {
         maxScore = PlayerPrefs.HasKey("MAX_SCORE") ? PlayerPrefs.GetInt("MAX_SCORE") : 0;
@@ -79,6 +83,7 @@ public class GameManager : MonoBehaviour
         startUI.SetActive(!isStarting);
         if (isStarting) backgroundMusic.Play();
     }
+    //seta a tela de game over
     public void gameOver()
     {
         backgroundMusic.Stop();

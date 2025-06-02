@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ObjectPooler_manager : MonoBehaviour
 {
-    [System.Serializable]
+    [System.Serializable] 
+    //cria a piscina (explicação detalha em: SpawnFromPool)
     public class Pool
     {
         public string tag;
@@ -40,6 +41,12 @@ public class ObjectPooler_manager : MonoBehaviour
             poolDictionary.Add(pool.tag, objectPool);
         }
     }
+    /* @brief Responsável por spawnar os objetos da piscina.
+     *
+     * armazena todos os objetos que estão na cena  numa fila para que
+     * eles só precisem ser intanciados uma vez e quando necessario, ser colocado em uma
+     * nova posição.
+     */
     public GameObject SpawnFromPool(string tag,  Vector3 position, Quaternion rotation)
     {
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
